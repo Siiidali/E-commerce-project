@@ -4,6 +4,7 @@ import userRoute from './user.route';
 import productRoute from './product.route';
 import orderRoute from './order.route';
 import customerRoute from './customer.route';
+import shippingPricesRoute from './shipping-prices.route';
 import docsRoute from './docs.route';
 import config from '../../config/config';
 
@@ -29,6 +30,10 @@ const defaultRoutes = [
   {
     path: '/customers',
     route: customerRoute
+  },
+  {
+    path: '/shipping-prices',
+    route: shippingPricesRoute
   }
 ];
 

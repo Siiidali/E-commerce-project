@@ -18,7 +18,19 @@ components:
         email: fake@example.com
         name: fake name
         role: USER
-
+    ShippingPrice:
+      type: object
+      properties:
+        id:
+          type: number
+        wilaya:
+          type: string
+        price:
+          type: number
+      example:
+        id: 2222
+        wilaya: Anywilaya
+        price: 10.99
     Product:
       type: object
       properties:
