@@ -38,9 +38,15 @@ export default router;
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         application/form-data:
  *           schema:
- *             $ref: '#/components/schemas/Product'
+ *             type: object
+ *             properties:
+ *               image:
+ *                 type: string
+ *                 format: binary
+ *               product:
+ *                 $ref: '#/components/schemas/CreateProduct'
  *     responses:
  *       "201":
  *         description: Created
