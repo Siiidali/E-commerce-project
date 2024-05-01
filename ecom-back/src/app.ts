@@ -15,6 +15,16 @@ import ApiError from './utils/ApiError';
 
 const app = express();
 
+
+
+// CORS options
+const corsOptions = {
+  origin: 'http://localhost:5001', 
+  optionsSuccessStatus: 200 
+};
+
+app.use(cors(corsOptions)); // Use CORS middleware with options
+console.log(process.env.JWT_SECRET); 
 if (config.env !== 'test') {
   app.use(morgan.successHandler);
   app.use(morgan.errorHandler);
@@ -35,8 +45,8 @@ app.use(xss());
 // gzip compression
 app.use(compression());
 
-// enable cors
 app.use(cors());
+
 app.options('*', cors());
 
 // jwt authentication

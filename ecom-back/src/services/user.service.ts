@@ -10,9 +10,9 @@ import { encryptPassword } from '../utils/encryption';
  * @returns {Promise<User>}
  */
 const createUser = async (
+  name: string,
   email: string,
   password: string,
-  name?: string,
   role: Role = Role.USER
 ): Promise<User> => {
   if (await getUserByEmail(email)) {
