@@ -9,7 +9,7 @@ const register = catchAsync(async (req, res) => {
   const user = await userService.createUser(name, email, password);
   const userWithoutPassword = exclude(user, ['password', 'createdAt', 'updatedAt']);
   const tokens = await tokenService.generateAuthTokens(user);
-  res.send({ user: userWithoutPassword, tokens });
+  res.status(httpStatus.CREATED).send({ user: userWithoutPassword, tokens });
 });
 
 const login = catchAsync(async (req, res) => {
