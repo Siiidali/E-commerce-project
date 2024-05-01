@@ -16,9 +16,7 @@ const createOrder = {
         productId: Joi.string().required(),
         quantity: Joi.number().integer().positive().required()
       })
-    ),
-
-    total: Joi.number().required()
+    )
   })
 };
 

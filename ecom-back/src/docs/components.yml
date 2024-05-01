@@ -165,8 +165,6 @@ components:
                 type: number
               quantity:
                 type: number
-        total:
-          type: number
       example:
         customer:
           name: John Doe

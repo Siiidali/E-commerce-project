@@ -1,4 +1,4 @@
-import { Order, OrderStatus } from '@prisma/client';
+import { DiscountValueType, Order, OrderStatus } from '@prisma/client';
 import httpStatus from 'http-status';
 import prisma from '../client';
 import ApiError from '../utils/ApiError';
@@ -12,6 +12,44 @@ import customerService from './customer.service';
  */
 const createOrder = async (order: CreateOrder): Promise<Order> => {
   const customer = await customerService.createCustomer(order.customer);
+  // get all products price
+  const products = await prisma.product.findMany({
+    where: {
+      id: {
+        in: order.products.map((product) => product.productId)
+      }
+    }
+  });
+
+  let total = 0;
+  total = products.reduce((acc, product) => acc + product.price * product.quantity, 0);
+  if (order.useDiscount) {
+    // get discount code
+    const discount = await prisma.discount.findFirst({
+      where: {
+        code: order.discountCode
+      }
+    });
+    if (discount) {
+      if (discount.valueType === DiscountValueType.PERCENTAGE) {
+        total = total - (total * discount.value) / 100;
+      } else {
+        total = total - discount.value;
+      }
+    }
+  }
+
+  // shipping cost
+
+  const shippingPrice = await prisma.shippingPrice.findFirst({
+    where: {
+      wilaya: customer.wilaya
+    }
+  });
+
+  if (shippingPrice) {
+    total = total + shippingPrice.price;
+  }
 
   return prisma.order.create({
     data: {
@@ -20,7 +58,7 @@ const createOrder = async (order: CreateOrder): Promise<Order> => {
           id: customer.id
         }
       },
-      total: order.total,
+      total: total,
       status: OrderStatus.PENDING,
       products: {
         create: order.products.map((product) => ({

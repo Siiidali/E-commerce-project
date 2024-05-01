@@ -11,5 +11,6 @@ export interface CreateOrder {
     productId: number;
     quantity: number;
   }[];
-  total: number;
+  useDiscount: boolean;
+  discountCode: string;
 }

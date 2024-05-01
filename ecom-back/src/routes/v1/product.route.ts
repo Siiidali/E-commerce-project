@@ -23,6 +23,10 @@ router
   .patch(auth(), validate(productValidation.updateProduct), productController.updateProduct)
   .delete(auth(), validate(productValidation.deleteProduct), productController.deleteProduct);
 
+router
+  .route('/client/:productId')
+  .get(validate(productValidation.getProduct), productController.getProduct);
+
 export default router;
 
 /**
@@ -114,6 +118,29 @@ export default router;
  *     tags: [Products]
  *     security:
  *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: productId
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Product ID
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Product'
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ * /products/client/{productId}:
+ *   get:
+ *     summary: Get product by ID
+ *     description: Retrieve a product by its ID.
+ *     tags: [Products]
  *     parameters:
  *       - in: path
  *         name: productId
