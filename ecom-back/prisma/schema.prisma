@@ -102,6 +102,21 @@ model ShippingPrice {
   updatedAt DateTime @updatedAt
 }
 
+model Discount {
+  id        Int               @id @default(autoincrement())
+  code      String
+  value     Float
+  valueType DiscountValueType
+  active    Boolean
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+}
+
+enum DiscountValueType {
+  PERCENTAGE
+  AMOUNT
+}
+
 enum OrderStatus {
   PENDING
   CONFIRMED

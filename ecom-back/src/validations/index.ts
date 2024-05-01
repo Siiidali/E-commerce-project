@@ -4,3 +4,4 @@ export { default as productValidation } from './product.validation';
 export { default as orderValidation } from './order.validation';
 export { default as customerValidation } from './customer.validation';
 export { default as shippingPricesValidation } from './shipping-prices.validation';
+export { default as discountValidation } from './discount.validation';

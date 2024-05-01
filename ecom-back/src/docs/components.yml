@@ -18,6 +18,23 @@ components:
         email: fake@example.com
         name: fake name
         role: USER
+    Discount:
+      type: object
+      properties:
+        id:
+          type: number
+        code:
+          type: string
+        value:
+          type: number
+        valueType:
+          type: string
+          enum: [PERCENTAGE, AMOUNT]
+      example:
+        id: 2222
+        code: FAKECODE
+        value: 10
+        valueType: PERCENTAGE
     ShippingPrice:
       type: object
       properties:
