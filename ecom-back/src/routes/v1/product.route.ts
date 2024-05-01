@@ -3,12 +3,18 @@ import auth from '../../middlewares/auth';
 import validate from '../../middlewares/validate';
 import { productValidation } from '../../validations';
 import { productController } from '../../controllers';
+import uploadImage from '../../middlewares/upload';
 
 const router = express.Router();
 
 router
   .route('/')
-  .post(auth(), validate(productValidation.createProduct), productController.createProduct)
+  .post(
+    auth(),
+    uploadImage(),
+    validate(productValidation.createProduct),
+    productController.createProduct
+  )
   .get(auth(), validate(productValidation.getProducts), productController.getProducts);
 
 router

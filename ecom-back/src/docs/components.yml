@@ -38,6 +38,21 @@ components:
             type: string
         quantity:
           type: number
+    CreateProduct:
+      type: object
+      properties:
+        title:
+          type: string
+        price:
+          type: number
+        description:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
+        quantity:
+          type: number
       example:
         id: 3333
         title: fake product
@@ -46,50 +61,6 @@ components:
         image: fake image
         categories: [fake, category]
         quantity: 10
-    Customer:
-      type: object
-      properties:
-        id:
-          type: number
-        name:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
-        address:
-          type: string
-        city:
-          type: string
-        wilaya:
-          type: string
-        orders:
-          type: array
-          items:
-            $ref: '#/components/schemas/Order'
-      example:
-        id: 123
-        name: John Doe
-        email: john@example.com
-        phone: +1234567890
-        address: 123 Main St
-        city: Anytown
-        wilaya: Anywilaya
-        orders:
-          - id: 456
-            customer:
-              name: John Doe
-              email: john@example.com
-              phone: +1234567890
-              address: 123 Main St
-              city: Anytown
-              wilaya: Anywilaya
-            products:
-              - productId: 5678
-                quantity: 2
-              - productId: 91011
-                quantity: 1
-            total: 29.99
 
     Order:
       type: object
@@ -181,7 +152,50 @@ components:
           - productId: 91011
             quantity: 1
         total: 29.99
-
+    Customer:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        address:
+          type: string
+        city:
+          type: string
+        wilaya:
+          type: string
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
+      example:
+        id: 123
+        name: John Doe
+        email: john@example.com
+        phone: +1234567890
+        address: 123 Main St
+        city: Anytown
+        wilaya: Anywilaya
+        orders:
+          - id: 456
+            customer:
+              name: John Doe
+              email: john@example.com
+              phone: +1234567890
+              address: 123 Main St
+              city: Anytown
+              wilaya: Anywilaya
+            products:
+              - productId: 5678
+                quantity: 2
+              - productId: 91011
+                quantity: 1
+            total: 29.99
     Token:
       type: object
       properties:
