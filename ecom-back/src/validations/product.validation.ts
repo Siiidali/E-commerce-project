@@ -2,16 +2,13 @@ import Joi from 'joi';
 
 const createProduct = {
   body: Joi.object().keys({
-    // email: Joi.string().required().email(),
-    // password: Joi.string().required().custom(password),
-    // name: Joi.string().required(),
-    // role: Joi.string().required().valid(Role.USER, Role.ADMIN)
-    title: Joi.string().required(),
-    price: Joi.number().required(),
-    description: Joi.string().required(),
-    image: Joi.string().required(),
-    categories: Joi.array().items(Joi.string()),
-    quantity: Joi.number().required()
+    product: Joi.object().keys({
+      title: Joi.string().required(),
+      price: Joi.number().required(),
+      description: Joi.string().required(),
+      categories: Joi.array().items(Joi.string()),
+      quantity: Joi.number().required()
+    })
   })
 };
 

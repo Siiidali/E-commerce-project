@@ -6,7 +6,7 @@ import { productService } from '../services';
 import { Product } from '@prisma/client';
 
 const createProduct = catchAsync(async (req, res) => {
-  const productBody = req.body as Omit<Product, 'createdAt' | 'updatedAt' | 'id' | 'image'>;
+  const productBody = req.body.product as Omit<Product, 'createdAt' | 'updatedAt' | 'id' | 'image'>;
   const image = req.file;
   const product = await productService.createProduct(productBody, image);
   res.status(httpStatus.CREATED).send(product);

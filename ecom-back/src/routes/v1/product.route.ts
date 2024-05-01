@@ -3,12 +3,18 @@ import auth from '../../middlewares/auth';
 import validate from '../../middlewares/validate';
 import { productValidation } from '../../validations';
 import { productController } from '../../controllers';
+import uploadImage from '../../middlewares/upload';
 
 const router = express.Router();
 
 router
   .route('/')
-  .post(auth(), validate(productValidation.createProduct), productController.createProduct)
+  .post(
+    auth(),
+    uploadImage(),
+    validate(productValidation.createProduct),
+    productController.createProduct
+  )
   .get(auth(), validate(productValidation.getProducts), productController.getProducts);
 
 router
@@ -38,9 +44,15 @@ export default router;
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         application/form-data:
  *           schema:
- *             $ref: '#/components/schemas/Product'
+ *             type: object
+ *             properties:
+ *               image:
+ *                 type: string
+ *                 format: binary
+ *               product:
+ *                 $ref: '#/components/schemas/CreateProduct'
  *     responses:
  *       "201":
  *         description: Created

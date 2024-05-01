@@ -46,13 +46,57 @@ enum TokenType {
 }
 
 model Product {
-  id          Int      @id @default(autoincrement())
-  title       String
-  price       Float
-  description String
-  image       String
-  categories  String[]
-  quantity    Int?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id               Int               @id @default(autoincrement())
+  title            String
+  price            Float
+  description      String
+  image            String
+  categories       String[]
+  quantity         Int
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  ProductsQuantity ProductQuantity[]
+}
+
+model Customer {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String?
+  phone     String
+  wilaya    String
+  city      String
+  address   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orders    Order[]
+}
+
+model Order {
+  id         Int               @id @default(autoincrement())
+  customer   Customer          @relation(fields: [customerId], references: [id])
+  customerId Int
+  products   ProductQuantity[]
+  total      Float
+  status     OrderStatus
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+}
+
+model ProductQuantity {
+  id        Int      @id @default(autoincrement())
+  product   Product  @relation(fields: [productId], references: [id])
+  quantity  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  productId Int
+  Order     Order?   @relation(fields: [orderId], references: [id])
+  orderId   Int?
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  SHIPPED
+  DELIVERED
+  CANCELED
 }
