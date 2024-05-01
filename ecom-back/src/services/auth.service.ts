@@ -28,12 +28,9 @@ const loginUserWithEmailAndPassword = async (
     'createdAt',
     'updatedAt'
   ]);
-  console.log("user infoo",user)
   if (!user || !(await isPasswordMatch(password, user.password as string))) {
-    console.log("u here???")
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect email or password');
   }
-  console.log("u did acceept")
   return exclude(user, ['password']);
 };
 
